@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Product } from '../../domain/entities/Product';
+import PartCustomizer from './PartCustomizer';
 import PriceSummary from './PriceSummary';
 import ProductImage from './ProductImage';
 import ProductInfo from './ProductInfo';
@@ -14,20 +16,20 @@ const mockProduct: Product = {
   creationDate: new Date(),
   parts: [
     {
-      id: 'part-1',
+      id: '1',
       name: 'Part 1',
       options: [
-        { id: 'option-1', name: 'Option 1', additionalPrice: 0, available: true },
-        { id: 'option-2', name: 'Option 2', additionalPrice: 10, available: true },
-        { id: 'option-3', name: 'Option 3', additionalPrice: 20, available: true },
+        { id: '1', name: 'Option 1', additionalPrice: 0, available: true },
+        { id: '2', name: 'Option 2', additionalPrice: 10, available: true },
+        { id: '3', name: 'Option 3', additionalPrice: 20, available: true },
       ],
     },
     {
-      id: 'part-2',
+      id: '2',
       name: 'Part 2',
       options: [
-        { id: 'option-4', name: 'Option 4', additionalPrice: 0, available: true },
-        { id: 'option-5', name: 'Option 5', additionalPrice: 15, available: true },
+        { id: '4', name: 'Option 4', additionalPrice: 0, available: true },
+        { id: '5', name: 'Option 5', additionalPrice: 15, available: true },
       ],
     },
   ],
@@ -35,6 +37,15 @@ const mockProduct: Product = {
 };
 
 const ProductDetail: React.FC = () => {
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+
+  const handleOptionChange = (partId: string, optionId: string) => {
+    setSelectedOptions((previousSelectedOptions) => ({
+      ...previousSelectedOptions,
+      [partId]: optionId,
+    }));
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -45,6 +56,16 @@ const ProductDetail: React.FC = () => {
             description={mockProduct.description}
             type={mockProduct.type}
           />
+          <div className="mb-6">
+            {mockProduct.parts.map((part) => (
+              <PartCustomizer
+                key={part.id}
+                part={part}
+                selectedOption={selectedOptions[part.id]}
+                onOptionChange={handleOptionChange}
+              />
+            ))}
+          </div>
           <PriceSummary totalPrice={mockProduct.basePrice} />
         </div>
       </div>
