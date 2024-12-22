@@ -21,14 +21,14 @@ const mockProduct: Product = {
       options: [
         { id: '1', name: 'Option 1', additionalPrice: 0, available: true },
         { id: '2', name: 'Option 2', additionalPrice: 10, available: true },
-        { id: '3', name: 'Option 3', additionalPrice: 20, available: true },
+        { id: '3', name: 'Option 3', additionalPrice: 20, available: false },
       ],
     },
     {
       id: '2',
       name: 'Part 2',
       options: [
-        { id: '4', name: 'Option 4', additionalPrice: 0, available: true },
+        { id: '4', name: 'Option 4', additionalPrice: 0, available: false },
         { id: '5', name: 'Option 5', additionalPrice: 15, available: true },
       ],
     },

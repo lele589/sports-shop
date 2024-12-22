@@ -14,6 +14,9 @@ const PartCustomizer: React.FC<PartCustomizerProps> = ({
   const styleSelectedOption = (option: PartOption) =>
     selectedOption === option.id ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800';
 
+  const styleAvailableOption = (isAvailableOption: boolean) =>
+    isAvailableOption ? '' : 'opacity-30 cursor-not-allowed';
+
   return (
     <div className="mb-4">
       <h3 className="text-lg font-medium mb-2">{part.name}</h3>
@@ -21,7 +24,7 @@ const PartCustomizer: React.FC<PartCustomizerProps> = ({
         {part.options.map((option) => (
           <button
             key={option.id}
-            className={`px-4 py-2 rounded ${styleSelectedOption(option)}`}
+            className={`px-4 py-2 rounded ${styleSelectedOption(option)} ${styleAvailableOption(option.available)}`}
             onClick={() => onOptionChange(part.id, option.id)}
             disabled={!option.available}
           >
