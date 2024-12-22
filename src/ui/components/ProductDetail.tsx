@@ -1,4 +1,5 @@
 import { Product } from '../../domain/entities/Product';
+import PriceSummary from './PriceSummary';
 import ProductImage from './ProductImage';
 import ProductInfo from './ProductInfo';
 
@@ -44,6 +45,7 @@ const ProductDetail: React.FC = () => {
             description={mockProduct.description}
             type={mockProduct.type}
           />
+          <PriceSummary totalPrice={mockProduct.basePrice} />
         </div>
       </div>
     </div>
