@@ -6,7 +6,7 @@ import ProductImage from './ProductImage';
 import ProductInfo from './ProductInfo';
 import { useCases } from '../../application/useCases/useCasesContainer';
 
-const mockProduct: Product = {
+const exampleProduct: Product = {
   id: '1',
   name: 'Bicycle A-125',
   description:
@@ -42,7 +42,7 @@ const ProductDetail: React.FC = () => {
 
   useEffect(() => {
     const { data: initialSelectedOptions } = useCases.getInitialPartOptions({
-      partOptions: mockProduct.parts,
+      parts: exampleProduct.parts,
     });
     if (initialSelectedOptions) {
       setSelectedOptions(initialSelectedOptions);
@@ -59,15 +59,15 @@ const ProductDetail: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <ProductImage name={mockProduct.name} imageUrl={mockProduct.imageUrl} />
+        <ProductImage name={exampleProduct.name} imageUrl={exampleProduct.imageUrl} />
         <div>
           <ProductInfo
-            name={mockProduct.name}
-            description={mockProduct.description}
-            type={mockProduct.type}
+            name={exampleProduct.name}
+            description={exampleProduct.description}
+            type={exampleProduct.type}
           />
           <div className="mb-6">
-            {mockProduct.parts.map((part) => (
+            {exampleProduct.parts.map((part) => (
               <PartCustomizer
                 key={part.id}
                 part={part}
@@ -76,7 +76,7 @@ const ProductDetail: React.FC = () => {
               />
             ))}
           </div>
-          <PriceSummary totalPrice={mockProduct.basePrice} />
+          <PriceSummary totalPrice={exampleProduct.basePrice} />
         </div>
       </div>
     </div>

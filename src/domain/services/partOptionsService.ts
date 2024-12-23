@@ -1,15 +1,13 @@
 import { Part, PartOption } from '../entities/Product';
 
-type getInitialPartOptionsTypes = ({ partOptions }: { partOptions: Part[] }) => {
+type getInitialPartOptionsTypes = ({ parts }: { parts: Part[] }) => {
   [partId: string]: string;
 };
 
 const getInitialPartOptions: getInitialPartOptionsTypes = ({
-  partOptions,
-}: {
-  partOptions: Part[];
+  parts,
 }) => {
-  const initialPartOptions = partOptions.reduce((acc, part: Part) => {
+  const initialPartOptions = parts.reduce((acc, part: Part) => {
     const availableOptions = part.options.filter((option: PartOption) => option.available);
 
     const lessExpensiveOption = availableOptions.reduce((leastExpensive, option) => {
