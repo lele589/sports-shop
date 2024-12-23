@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Product } from '../../domain/entities/Product';
 import PartCustomizer from './PartCustomizer';
 import PriceSummary from './PriceSummary';
 import ProductImage from './ProductImage';
 import ProductInfo from './ProductInfo';
+import { useCases } from '../../application/useCases/useCasesContainer';
 
 const mockProduct: Product = {
   id: '1',
@@ -37,7 +38,16 @@ const mockProduct: Product = {
 };
 
 const ProductDetail: React.FC = () => {
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [selectedOptions, setSelectedOptions] = useState<{ [partId: string]: string }>({});
+
+  useEffect(() => {
+    const { data: initialSelectedOptions } = useCases.getInitialPartOptions({
+      partOptions: mockProduct.parts,
+    });
+    if (initialSelectedOptions) {
+      setSelectedOptions(initialSelectedOptions);
+    }
+  }, []);
 
   const handleOptionChange = (partId: string, optionId: string) => {
     setSelectedOptions((previousSelectedOptions) => ({
