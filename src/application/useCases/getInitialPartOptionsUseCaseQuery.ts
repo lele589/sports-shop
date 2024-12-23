@@ -2,11 +2,7 @@ import { partOptionsService } from '../../domain/services/partOptionsService';
 import { GENERIC_USE_CASE_ERRORS } from './useCasesErrorConstants';
 import { Part } from '../../domain/entities/Product';
 
-export const GetInitialPartOptionsUseCaseQuery = ({
-  parts
-}: {
-  parts: Part[];
-}) => {
+export const GetInitialPartOptionsUseCaseQuery = ({ parts }: { parts: Part[] }) => {
   const scope = '[USE_CASE/GET_INITIAL_PART_OPTIONS]';
   try {
     const initialPartOptions = partOptionsService.getInitialPartOptions({

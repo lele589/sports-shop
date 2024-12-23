@@ -4,9 +4,7 @@ type getInitialPartOptionsTypes = ({ parts }: { parts: Part[] }) => {
   [partId: string]: string;
 };
 
-const getInitialPartOptions: getInitialPartOptionsTypes = ({
-  parts,
-}) => {
+const getInitialPartOptions: getInitialPartOptionsTypes = ({ parts }) => {
   const initialPartOptions = parts.reduce((acc, part: Part) => {
     const availableOptions = part.options.filter((option: PartOption) => option.available);
 
