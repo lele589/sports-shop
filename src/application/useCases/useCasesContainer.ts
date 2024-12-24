@@ -1,7 +1,7 @@
-import { CalculateProductPriceUseCaseCommand } from './calculateProductPriceUseCaseCommand';
 import { GetInitialPartOptionsUseCaseQuery } from './getInitialPartOptionsUseCaseQuery';
+import { UpdateProductCustomizationUseCaseCommand } from './UpdateProductCustomizationUseCaseCommand';
 
 export const useCases = {
   getInitialPartOptions: GetInitialPartOptionsUseCaseQuery,
-  calculateProductPrice: CalculateProductPriceUseCaseCommand,
+  updateProductCustomization: UpdateProductCustomizationUseCaseCommand,
 };

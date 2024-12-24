@@ -51,14 +51,14 @@ const ProductDetail: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const { data: calculatedTotalPrice } = useCases.calculateProductPrice({
-      baseProductPrice: exampleProduct.basePrice,
+    const result = useCases.updateProductCustomization({
+      product: exampleProduct,
       selectedOptions,
-      parts: exampleProduct.parts,
     });
-    if (calculatedTotalPrice) {
-      setTotalPrice(calculatedTotalPrice);
+    if (result.success) {
+      setTotalPrice(result.data.productTotalPrice);
     }
+    // if the product requires it, we could handle the error here and show a message to the user, for example
   }, [selectedOptions]);
 
   const handleOptionChange = (partId: string, optionId: string) => {
