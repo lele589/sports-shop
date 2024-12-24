@@ -2,7 +2,7 @@ import { Part, PartOption } from '../../domain/entities/Product';
 
 interface PartCustomizerProps {
   part: Part;
-  selectedOption: string;
+  selectedOption: string | null;
   onOptionChange: (partId: string, optionId: string) => void;
 }
 

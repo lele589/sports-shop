@@ -42,15 +42,6 @@ const ProductDetail: React.FC = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
-    const { data: initialSelectedOptions } = useCases.getInitialPartOptions({
-      parts: exampleProduct.parts,
-    });
-    if (initialSelectedOptions) {
-      setSelectedOptions(initialSelectedOptions);
-    }
-  }, []);
-
-  useEffect(() => {
     const result = useCases.updateProductCustomization({
       product: exampleProduct,
       selectedOptions,
