@@ -39,6 +39,7 @@ const exampleProduct: Product = {
 
 const ProductDetail: React.FC = () => {
   const [selectedOptions, setSelectedOptions] = useState<{ [partId: string]: string }>({});
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
     const { data: initialSelectedOptions } = useCases.getInitialPartOptions({
@@ -48,6 +49,17 @@ const ProductDetail: React.FC = () => {
       setSelectedOptions(initialSelectedOptions);
     }
   }, []);
+
+  useEffect(() => {
+    const { data: calculatedTotalPrice } = useCases.calculateProductPrice({
+      baseProductPrice: exampleProduct.basePrice,
+      selectedOptions,
+      parts: exampleProduct.parts,
+    });
+    if (calculatedTotalPrice) {
+      setTotalPrice(calculatedTotalPrice);
+    }
+  }, [selectedOptions]);
 
   const handleOptionChange = (partId: string, optionId: string) => {
     setSelectedOptions((previousSelectedOptions) => ({
@@ -76,7 +88,7 @@ const ProductDetail: React.FC = () => {
               />
             ))}
           </div>
-          <PriceSummary totalPrice={exampleProduct.basePrice} />
+          <PriceSummary totalPrice={totalPrice} />
         </div>
       </div>
     </div>
