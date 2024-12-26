@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Product } from '../../domain/entities/Product';
 import PartCustomizer from './PartCustomizer';
-import PriceSummary from './PriceSummary';
+import ProductSummary from './ProductSummary';
 import ProductImage from './ProductImage';
 import ProductInfo from './ProductInfo';
 import { useCases } from '../../application/useCases/useCasesContainer';
@@ -42,7 +42,7 @@ const exampleProduct: Product = {
     },
     {
       optionId: '5',
-      disallowedOptionIds: ['2', '3'],
+      disallowedOptionIds: ['2'],
     },
   ],
 };
@@ -66,6 +66,8 @@ const ProductDetail: React.FC = () => {
     }
   };
 
+  const areAllOptionsSelected = Object.keys(selectedOptions).length >= exampleProduct.parts.length;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -87,7 +89,10 @@ const ProductDetail: React.FC = () => {
               />
             ))}
           </div>
-          <PriceSummary price={totalPrice || exampleProduct.basePrice} />
+          <ProductSummary
+            price={totalPrice || exampleProduct.basePrice}
+            isAvailableToBuy={areAllOptionsSelected}
+          />
         </div>
       </div>
     </div>
