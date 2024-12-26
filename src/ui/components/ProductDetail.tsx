@@ -87,7 +87,7 @@ const ProductDetail: React.FC = () => {
               />
             ))}
           </div>
-          <PriceSummary totalPrice={totalPrice} />
+          <PriceSummary price={totalPrice || exampleProduct.basePrice} />
         </div>
       </div>
     </div>
