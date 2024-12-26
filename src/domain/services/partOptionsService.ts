@@ -1,6 +1,7 @@
 import { OptionsDependencies } from '../entities/Product';
 
-type getDisallowedOptionsTypes = ({
+// Types
+type identifyDisallowedOptionsTypes = ({
   selectedOptions,
   dependencies,
 }: {
@@ -8,7 +9,19 @@ type getDisallowedOptionsTypes = ({
   dependencies: OptionsDependencies[];
 }) => string[];
 
-const getDisallowedOptions: getDisallowedOptionsTypes = ({ selectedOptions, dependencies }) => {
+type filterSelectedOptionsTypes = ({
+  selectedOptions,
+  disallowedOptions,
+}: {
+  selectedOptions: { [partId: string]: string };
+  disallowedOptions: string[];
+}) => { [partId: string]: string };
+
+// Methods
+const identifyDisallowedOptions: identifyDisallowedOptionsTypes = ({
+  selectedOptions,
+  dependencies,
+}) => {
   const selectedOptionIds = Object.values(selectedOptions);
 
   const disallowedOptionIds = dependencies.reduce<string[]>((acc, dependency) => {
@@ -21,4 +34,25 @@ const getDisallowedOptions: getDisallowedOptionsTypes = ({ selectedOptions, depe
   return disallowedOptionIds;
 };
 
-export const partOptionsService = { getDisallowedOptions };
+const filterSelectedOptions: filterSelectedOptionsTypes = ({
+  selectedOptions,
+  disallowedOptions,
+}) => {
+  const newSelectedOptions = { ...selectedOptions };
+
+  disallowedOptions.forEach((disallowedOptionId: string) => {
+    const partId = Object.keys(newSelectedOptions).find(
+      (partId) => newSelectedOptions[partId] === disallowedOptionId,
+    );
+    if (partId) {
+      delete newSelectedOptions[partId];
+    }
+  });
+
+  return newSelectedOptions;
+};
+
+export const partOptionsService = {
+  identifyDisallowedOptions,
+  filterSelectedOptions,
+};

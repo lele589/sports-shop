@@ -1,14 +1,17 @@
 import { partOptionsService } from './partOptionsService';
 
 describe('partOptionsService', () => {
-  describe('getDisallowedOptions', () => {
+  describe('identifyDisallowedOptions', () => {
     test('should identify multiple disallowed options from a single dependency', () => {
       const selectedOptions = { 'part-1': 'option-1' };
       const dependencies = [
         { optionId: 'option-1', disallowedOptionIds: ['option-4', 'option-5'] },
       ];
 
-      const result = partOptionsService.getDisallowedOptions({ selectedOptions, dependencies });
+      const result = partOptionsService.identifyDisallowedOptions({
+        selectedOptions,
+        dependencies,
+      });
       expect(result).toEqual(['option-4', 'option-5']);
     });
 
@@ -19,7 +22,10 @@ describe('partOptionsService', () => {
         { optionId: 'option-2', disallowedOptionIds: ['option-5'] },
       ];
 
-      const result = partOptionsService.getDisallowedOptions({ selectedOptions, dependencies });
+      const result = partOptionsService.identifyDisallowedOptions({
+        selectedOptions,
+        dependencies,
+      });
       expect(result).toEqual(['option-4', 'option-5']);
     });
 
@@ -27,7 +33,10 @@ describe('partOptionsService', () => {
       const selectedOptions = { 'part-1': 'option-1' };
       const dependencies = [{ optionId: 'option-2', disallowedOptionIds: ['option-4'] }];
 
-      const result = partOptionsService.getDisallowedOptions({ selectedOptions, dependencies });
+      const result = partOptionsService.identifyDisallowedOptions({
+        selectedOptions,
+        dependencies,
+      });
       expect(result).toEqual([]);
     });
 
@@ -35,8 +44,35 @@ describe('partOptionsService', () => {
       const selectedOptions = {};
       const dependencies = [{ optionId: 'option-1', disallowedOptionIds: ['option-4'] }];
 
-      const result = partOptionsService.getDisallowedOptions({ selectedOptions, dependencies });
+      const result = partOptionsService.identifyDisallowedOptions({
+        selectedOptions,
+        dependencies,
+      });
       expect(result).toEqual([]);
+    });
+  });
+
+  describe('filterSelectedOptions', () => {
+    test('should remove disallowed options from selected options', () => {
+      const selectedOptions = { 'part-1': 'option-1', 'part-2': 'option-2' };
+      const disallowedOptions = ['option-1'];
+
+      const result = partOptionsService.filterSelectedOptions({
+        selectedOptions,
+        disallowedOptions,
+      });
+      expect(result).toEqual({ 'part-2': 'option-2' });
+    });
+
+    test('should NOT remove any options when no disallowed options are present', () => {
+      const selectedOptions = { 'part-1': 'option-1', 'part-2': 'option-2' };
+      const disallowedOptions: string[] = [];
+
+      const result = partOptionsService.filterSelectedOptions({
+        selectedOptions,
+        disallowedOptions,
+      });
+      expect(result).toEqual(selectedOptions);
     });
   });
 });

@@ -16,11 +16,11 @@ const PartCustomizer: React.FC<PartCustomizerProps> = ({
   const styleSelectedOption = (option: PartOption) =>
     selectedOption === option.id ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800';
 
-  const styleEnableOption = (option: PartOption) =>
+  const isDisabledOption = (option: PartOption) =>
     !option.available ||
-    disallowedOptions.find((disallowedOptionId) => disallowedOptionId === option.id)
-      ? 'opacity-30 cursor-not-allowed'
-      : '';
+    Boolean(disallowedOptions.find((disallowedOptionId) => disallowedOptionId === option.id));
+  const styleEnableOption = (option: PartOption) =>
+    isDisabledOption(option) ? 'opacity-30 cursor-not-allowed' : '';
 
   return (
     <div className="mb-4">
@@ -31,7 +31,7 @@ const PartCustomizer: React.FC<PartCustomizerProps> = ({
             key={option.id}
             className={`px-4 py-2 rounded ${styleSelectedOption(option)} ${styleEnableOption(option)}`}
             onClick={() => onOptionChange(part.id, option.id)}
-            disabled={!option.available}
+            disabled={isDisabledOption(option)}
           >
             {option.name}
             {option.additionalPrice > 0 && ` (+€${option.additionalPrice})`}

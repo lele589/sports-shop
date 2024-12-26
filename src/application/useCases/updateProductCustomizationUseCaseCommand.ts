@@ -10,26 +10,35 @@ type UpdateProductCustomizationUseCaseCommandTypes = ({
 }: {
   product: Product;
   selectedOptions: { [partId: string]: string };
-}) => ResultType<{ productTotalPrice: number; disallowedOptions: string[] }>;
+}) => ResultType<{
+  productTotalPrice: number;
+  disallowedOptions: string[];
+  updatedSelectedOptions: { [partId: string]: string };
+}>;
 
 export const UpdateProductCustomizationUseCaseCommand: UpdateProductCustomizationUseCaseCommandTypes =
   ({ product, selectedOptions }) => {
     const scope = '[USE_CASE/UPDATE_PRODUCT_CUSTOMIZATION]';
     try {
-      const productTotalPrice = productService.calculateTotalPrice({
-        baseProductPrice: product.basePrice,
-        selectedOptions,
-        parts: product.parts,
-      });
-
-      const disallowedOptions = partOptionsService.getDisallowedOptions({
+      const disallowedOptions = partOptionsService.identifyDisallowedOptions({
         selectedOptions,
         dependencies: product.dependencies,
       });
 
+      const updatedSelectedOptions = partOptionsService.filterSelectedOptions({
+        selectedOptions,
+        disallowedOptions,
+      });
+
+      const productTotalPrice = productService.calculateTotalPrice({
+        baseProductPrice: product.basePrice,
+        selectedOptions: updatedSelectedOptions,
+        parts: product.parts,
+      });
+
       return {
         success: true,
-        data: { productTotalPrice, disallowedOptions },
+        data: { productTotalPrice, disallowedOptions, updatedSelectedOptions },
       };
     } catch {
       // although the error is not handled in this specific case in the component, we keep error management standardized

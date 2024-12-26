@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Product } from '../../domain/entities/Product';
 import PartCustomizer from './PartCustomizer';
 import PriceSummary from './PriceSummary';
@@ -52,23 +52,18 @@ const ProductDetail: React.FC = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [disallowedOptions, setDisallowedOptions] = useState<string[]>([]);
 
-  useEffect(() => {
+  const handleOptionChange = (partId: string, optionId: string) => {
+    const newSelectedOptions = { ...selectedOptions, [partId]: optionId };
+
     const result = useCases.updateProductCustomization({
       product: exampleProduct,
-      selectedOptions,
+      selectedOptions: newSelectedOptions,
     });
     if (result.success) {
-      setTotalPrice(result.data.productTotalPrice);
+      setSelectedOptions(result.data.updatedSelectedOptions);
       setDisallowedOptions(result.data.disallowedOptions);
+      setTotalPrice(result.data.productTotalPrice);
     }
-    // if the product requires it, we could handle the error here and show a message to the user, for example
-  }, [selectedOptions]);
-
-  const handleOptionChange = (partId: string, optionId: string) => {
-    setSelectedOptions((previousSelectedOptions) => ({
-      ...previousSelectedOptions,
-      [partId]: optionId,
-    }));
   };
 
   return (
