@@ -2,7 +2,7 @@ import { productService } from './productService';
 
 describe('productService', () => {
   describe('calculateTotalPrice', () => {
-    test('should not change the product price if no options are selected', () => {
+    it('should not change the product price if no options are selected', () => {
       const mockParts = [
         {
           id: 'partId-1',
@@ -25,7 +25,7 @@ describe('productService', () => {
 
       expect(result).toBe(baseProductPrice);
     });
-    test('should calculate the product price by adding the selected options price', () => {
+    it('should calculate the product price by adding the selected options price', () => {
       const mockParts = [
         {
           id: 'partId-1',
