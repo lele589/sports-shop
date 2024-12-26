@@ -22,24 +22,35 @@ const exampleProduct: Product = {
       options: [
         { id: '1', name: 'Option 1', additionalPrice: 0, available: true },
         { id: '2', name: 'Option 2', additionalPrice: 10, available: true },
-        { id: '3', name: 'Option 3', additionalPrice: 20, available: false },
+        { id: '3', name: 'Option 3', additionalPrice: 20, available: true },
       ],
     },
     {
       id: '2',
       name: 'Part 2',
       options: [
-        { id: '4', name: 'Option 4', additionalPrice: 0, available: false },
+        { id: '4', name: 'Option 4', additionalPrice: 0, available: true },
         { id: '5', name: 'Option 5', additionalPrice: 15, available: true },
       ],
     },
   ],
   imageUrl: 'https://placehold.co/600x400',
+  dependencies: [
+    {
+      optionId: '2',
+      disallowedOptionIds: ['4'],
+    },
+    {
+      optionId: '5',
+      disallowedOptionIds: ['2', '3'],
+    },
+  ],
 };
 
 const ProductDetail: React.FC = () => {
   const [selectedOptions, setSelectedOptions] = useState<{ [partId: string]: string }>({});
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [disallowedOptions, setDisallowedOptions] = useState<string[]>([]);
 
   useEffect(() => {
     const result = useCases.updateProductCustomization({
@@ -48,6 +59,7 @@ const ProductDetail: React.FC = () => {
     });
     if (result.success) {
       setTotalPrice(result.data.productTotalPrice);
+      setDisallowedOptions(result.data.disallowedOptions);
     }
     // if the product requires it, we could handle the error here and show a message to the user, for example
   }, [selectedOptions]);
@@ -75,6 +87,7 @@ const ProductDetail: React.FC = () => {
                 key={part.id}
                 part={part}
                 selectedOption={selectedOptions[part.id]}
+                disallowedOptions={disallowedOptions}
                 onOptionChange={handleOptionChange}
               />
             ))}

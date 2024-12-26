@@ -2,6 +2,7 @@ import { productService } from '../../domain/services/productService';
 import { GENERIC_USE_CASE_ERRORS } from './useCasesErrorConstants';
 import { Product } from '../../domain/entities/Product';
 import { ResultType } from '../../types/Generics';
+import { partOptionsService } from '../../domain/services/partOptionsService';
 
 type UpdateProductCustomizationUseCaseCommandTypes = ({
   product,
@@ -9,16 +10,10 @@ type UpdateProductCustomizationUseCaseCommandTypes = ({
 }: {
   product: Product;
   selectedOptions: { [partId: string]: string };
-}) => ResultType<{ productTotalPrice: number }>;
+}) => ResultType<{ productTotalPrice: number; disallowedOptions: string[] }>;
 
 export const UpdateProductCustomizationUseCaseCommand: UpdateProductCustomizationUseCaseCommandTypes =
-  ({
-    product,
-    selectedOptions,
-  }: {
-    product: Product;
-    selectedOptions: { [partId: string]: string };
-  }) => {
+  ({ product, selectedOptions }) => {
     const scope = '[USE_CASE/UPDATE_PRODUCT_CUSTOMIZATION]';
     try {
       const productTotalPrice = productService.calculateTotalPrice({
@@ -27,9 +22,14 @@ export const UpdateProductCustomizationUseCaseCommand: UpdateProductCustomizatio
         parts: product.parts,
       });
 
+      const disallowedOptions = partOptionsService.getDisallowedOptions({
+        selectedOptions,
+        dependencies: product.dependencies,
+      });
+
       return {
         success: true,
-        data: { productTotalPrice },
+        data: { productTotalPrice, disallowedOptions },
       };
     } catch {
       // although the error is not handled in this specific case in the component, we keep error management standardized

@@ -1,21 +1,24 @@
-import { Part, PartOption } from '../entities/Product';
+import { OptionsDependencies } from '../entities/Product';
 
-type getInitialPartOptionsTypes = ({ parts }: { parts: Part[] }) => {
-  [partId: string]: string;
+type getDisallowedOptionsTypes = ({
+  selectedOptions,
+  dependencies,
+}: {
+  selectedOptions: { [partId: string]: string };
+  dependencies: OptionsDependencies[];
+}) => string[];
+
+const getDisallowedOptions: getDisallowedOptionsTypes = ({ selectedOptions, dependencies }) => {
+  const selectedOptionIds = Object.values(selectedOptions);
+
+  const disallowedOptionIds = dependencies.reduce<string[]>((acc, dependency) => {
+    if (selectedOptionIds.includes(dependency.optionId)) {
+      acc.push(...dependency.disallowedOptionIds);
+    }
+    return acc;
+  }, []);
+
+  return disallowedOptionIds;
 };
 
-const getInitialPartOptions: getInitialPartOptionsTypes = ({ parts }) => {
-  const initialPartOptions = parts.reduce((acc, part: Part) => {
-    const availableOptions = part.options.filter((option: PartOption) => option.available);
-
-    const lessExpensiveOption = availableOptions.reduce((leastExpensive, option) => {
-      return option.additionalPrice < leastExpensive.additionalPrice ? option : leastExpensive;
-    }, availableOptions[0]);
-
-    return { ...acc, [part.id]: lessExpensiveOption.id };
-  }, {});
-
-  return initialPartOptions;
-};
-
-export const partOptionsService = { getInitialPartOptions };
+export const partOptionsService = { getDisallowedOptions };

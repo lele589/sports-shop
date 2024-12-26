@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["jest", "@testing-library/jest-dom"],
+    "lib": ["es2019", "dom"]
   },
   "files": [],
   "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]

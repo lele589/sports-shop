@@ -3,19 +3,24 @@ import { Part, PartOption } from '../../domain/entities/Product';
 interface PartCustomizerProps {
   part: Part;
   selectedOption: string | null;
+  disallowedOptions: string[];
   onOptionChange: (partId: string, optionId: string) => void;
 }
 
 const PartCustomizer: React.FC<PartCustomizerProps> = ({
   part,
   selectedOption,
+  disallowedOptions,
   onOptionChange,
 }) => {
   const styleSelectedOption = (option: PartOption) =>
     selectedOption === option.id ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800';
 
-  const styleAvailableOption = (isAvailableOption: boolean) =>
-    isAvailableOption ? '' : 'opacity-30 cursor-not-allowed';
+  const styleEnableOption = (option: PartOption) =>
+    !option.available ||
+    disallowedOptions.find((disallowedOptionId) => disallowedOptionId === option.id)
+      ? 'opacity-30 cursor-not-allowed'
+      : '';
 
   return (
     <div className="mb-4">
@@ -24,7 +29,7 @@ const PartCustomizer: React.FC<PartCustomizerProps> = ({
         {part.options.map((option) => (
           <button
             key={option.id}
-            className={`px-4 py-2 rounded ${styleSelectedOption(option)} ${styleAvailableOption(option.available)}`}
+            className={`px-4 py-2 rounded ${styleSelectedOption(option)} ${styleEnableOption(option)}`}
             onClick={() => onOptionChange(part.id, option.id)}
             disabled={!option.available}
           >

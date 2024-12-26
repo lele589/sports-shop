@@ -9,6 +9,7 @@ export interface Product {
   creationDate: Date;
   parts: Part[];
   imageUrl: string;
+  dependencies: OptionsDependencies[];
 }
 
 export interface Part {
@@ -22,4 +23,9 @@ export interface PartOption {
   name: string;
   additionalPrice: number;
   available: boolean;
+}
+
+export interface OptionsDependencies {
+  optionId: string;
+  disallowedOptionIds: string[];
 }
