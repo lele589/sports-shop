@@ -1,6 +1,8 @@
-import { Part } from '../entities/Product';
+import { ProductRepository } from '../../infrastructure/repositories/http/ProductRepository';
+import { Part, Product } from '../entities/Product';
 
-const calculateTotalPrice = ({
+// Types
+type calculateTotalPriceTypes = ({
   baseProductPrice,
   selectedOptions,
   parts,
@@ -8,7 +10,16 @@ const calculateTotalPrice = ({
   baseProductPrice: number;
   selectedOptions: { [partId: string]: string };
   parts: Part[];
-}): number => {
+}) => number;
+
+type findProductByIdTypes = ({ productId }: { productId: string }) => Promise<Product | null>;
+
+// Methods
+const calculateTotalPrice: calculateTotalPriceTypes = ({
+  baseProductPrice,
+  selectedOptions,
+  parts,
+}) => {
   if (!selectedOptions) {
     return baseProductPrice;
   }
@@ -22,4 +33,12 @@ const calculateTotalPrice = ({
   return baseProductPrice + additionalPartsPrice;
 };
 
-export const productService = { calculateTotalPrice };
+const findProductById: findProductByIdTypes = async ({ productId }) => {
+  const result = await ProductRepository.findProductById({ productId });
+  if (!result.success) {
+    return null;
+  }
+  return result.data;
+};
+
+export const productService = { calculateTotalPrice, findProductById };
