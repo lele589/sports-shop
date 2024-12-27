@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import PartCustomizer from './PartCustomizer';
 import { Part } from '../../domain/entities/Product';
@@ -29,7 +29,7 @@ describe('PartCustomizer', () => {
       ],
     };
 
-    render(
+    const { getByText } = render(
       <PartCustomizer
         part={mockPart}
         selectedOption={null}
@@ -38,7 +38,7 @@ describe('PartCustomizer', () => {
       />,
     );
 
-    const option2 = screen.getByText(/anOption/i);
+    const option2 = getByText(/anOption/i);
     expect(option2).not.toBeDisabled();
   });
 
@@ -53,7 +53,7 @@ describe('PartCustomizer', () => {
       ],
     };
 
-    render(
+    const { getByText } = render(
       <PartCustomizer
         part={mockPart}
         selectedOption={null}
@@ -62,7 +62,7 @@ describe('PartCustomizer', () => {
       />,
     );
 
-    const option2 = screen.getByText(/anOption/i);
+    const option2 = getByText(/anOption/i);
     expect(option2).toBeDisabled();
   });
 
@@ -79,7 +79,7 @@ describe('PartCustomizer', () => {
       ],
     };
 
-    render(
+    const { getByText } = render(
       <PartCustomizer
         part={mockPart}
         selectedOption={null}
@@ -88,7 +88,7 @@ describe('PartCustomizer', () => {
       />,
     );
 
-    const option2 = screen.getByText(/anOption/i);
+    const option2 = getByText(/anOption/i);
     expect(option2).toBeDisabled();
   });
 
@@ -104,7 +104,7 @@ describe('PartCustomizer', () => {
 
     const currentSelectedOption = mockOptionDefaults.id;
 
-    render(
+    const { getByText } = render(
       <PartCustomizer
         part={mockPart}
         selectedOption={currentSelectedOption}
@@ -113,7 +113,7 @@ describe('PartCustomizer', () => {
       />,
     );
 
-    const option = screen.getByText(/anOption/i);
+    const option = getByText(/anOption/i);
     expect(option).toHaveClass(/bg-blue-500/i);
   });
 
@@ -127,7 +127,7 @@ describe('PartCustomizer', () => {
       ],
     };
 
-    render(
+    const { getByText } = render(
       <PartCustomizer
         part={mockPart}
         selectedOption={null}
@@ -136,7 +136,7 @@ describe('PartCustomizer', () => {
       />,
     );
 
-    const option = screen.getByText(/anOption/i);
+    const option = getByText(/anOption/i);
     option.click();
     expect(mockOnOptionChange).toHaveBeenCalledWith(mockPartDefaults.id, mockOptionDefaults.id);
   });

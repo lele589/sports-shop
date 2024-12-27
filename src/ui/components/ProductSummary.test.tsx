@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ProductSummary from './ProductSummary';
 
@@ -8,19 +8,19 @@ describe('ProductSummary', () => {
       isAvailableToBuy: true,
     };
 
-    render(<ProductSummary price={1000} {...props} />);
-    expect(screen.getByText(/1000.00/i)).toBeInTheDocument();
+    const { getByText } = render(<ProductSummary price={1000} {...props} />);
+    expect(getByText(/1000.00/i)).toBeInTheDocument();
   });
 
   it('should enable button when product is available to buy', () => {
-    render(<ProductSummary price={99.99} isAvailableToBuy={true} />);
-    const button = screen.getByRole('button', { name: /add to cart/i });
+    const { getByRole } = render(<ProductSummary price={99.99} isAvailableToBuy={true} />);
+    const button = getByRole('button', { name: /add to cart/i });
     expect(button).toBeEnabled();
   });
 
   it('should disabled button when product is not available to buy', () => {
-    render(<ProductSummary price={99.99} isAvailableToBuy={false} />);
-    const button = screen.getByRole('button', { name: /add to cart/i });
+    const { getByRole } = render(<ProductSummary price={99.99} isAvailableToBuy={false} />);
+    const button = getByRole('button', { name: /add to cart/i });
     expect(button).toBeDisabled();
   });
 });
