@@ -1,31 +1,21 @@
-export type ProductType = 'bicycle' | 'skis' | 'skate';
+import { Part } from './Part';
+
+export type ProductType = 'bicycle' | 'other';
+
 export interface Product {
   id: string;
   name: string;
   description: string;
   type: ProductType;
   basePrice: number;
-  inStock: boolean;
+  stock: number;
   creationDate: Date;
   parts: Part[];
   imageUrl: string;
-  dependencies: OptionsDependencies[];
+  dependencies: OptionDependency[];
 }
 
-export interface Part {
-  id: string;
-  name: string;
-  options: PartOption[];
-}
-
-export interface PartOption {
-  id: string;
-  name: string;
-  additionalPrice: number;
-  available: boolean;
-}
-
-export interface OptionsDependencies {
+export interface OptionDependency {
   optionId: string;
-  disallowedOptionIds: string[];
+  disallowedOptionId: string;
 }

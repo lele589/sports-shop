@@ -7,7 +7,7 @@ export const mockProduct: Product = {
     'This bicycle is designed for road riding, offering a smooth and efficient ride on paved surfaces. It features lightweight materials and aerodynamic design to enhance speed and performance, making it ideal for long-distance rides and competitive cycling.',
   type: 'bicycle',
   basePrice: 1000,
-  inStock: true,
+  stock: 5,
   creationDate: new Date(),
   parts: [
     {
@@ -32,11 +32,11 @@ export const mockProduct: Product = {
   dependencies: [
     {
       optionId: '2',
-      disallowedOptionIds: ['4'],
+      disallowedOptionId: '4',
     },
     {
       optionId: '5',
-      disallowedOptionIds: ['2'],
+      disallowedOptionId: '2',
     },
   ],
 };

@@ -1,6 +1,6 @@
 import { Product } from '../../../domain/entities/Product';
 import { ResultType } from '../../../types/Generics';
-import { GENERIC_API_ERRORS } from './apiErrorConstants';
+import { GENERIC_API_ERRORS } from './APIErrorConstants';
 import { mockProduct } from './temporalProductMock';
 
 // Types

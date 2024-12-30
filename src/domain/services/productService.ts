@@ -1,5 +1,6 @@
 import { ProductRepository } from '../../infrastructure/repositories/http/ProductRepository';
-import { Part, Product } from '../entities/Product';
+import { Part } from '../entities/Part';
+import { Product } from '../entities/Product';
 
 // Types
 type calculateTotalPriceTypes = ({

@@ -1,4 +1,4 @@
-import { OptionsDependencies } from '../entities/Product';
+import { OptionDependency } from '../entities/Product';
 
 // Types
 type identifyDisallowedOptionsTypes = ({
@@ -6,7 +6,7 @@ type identifyDisallowedOptionsTypes = ({
   dependencies,
 }: {
   selectedOptions: { [partId: string]: string };
-  dependencies: OptionsDependencies[];
+  dependencies: OptionDependency[];
 }) => string[];
 
 type filterSelectedOptionsTypes = ({
@@ -26,7 +26,7 @@ const identifyDisallowedOptions: identifyDisallowedOptionsTypes = ({
 
   const disallowedOptionIds = dependencies.reduce<string[]>((acc, dependency) => {
     if (selectedOptionIds.includes(dependency.optionId)) {
-      acc.push(...dependency.disallowedOptionIds);
+      acc.push(dependency.disallowedOptionId);
     }
     return acc;
   }, []);
