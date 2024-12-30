@@ -1,5 +1,6 @@
 import { ProductRepository } from '../../infrastructure/repositories/http/ProductRepository';
 import { Part } from '../entities/Part';
+import { PartOption } from '../entities/PartOption';
 import { Product } from '../entities/Product';
 
 // Types
@@ -26,7 +27,9 @@ const calculateTotalPrice: calculateTotalPriceTypes = ({
   }
 
   const additionalPartsPrice = parts.reduce((selectedOptionsTotalPrice, part) => {
-    const selectedOption = part.options.find((option) => option.id === selectedOptions[part.id]);
+    const selectedOption = part.options.find(
+      (option: PartOption) => option.id === selectedOptions[part.id],
+    );
     const selectedOptionPrice = selectedOption ? selectedOption.additionalPrice : 0;
     return selectedOptionsTotalPrice + selectedOptionPrice;
   }, 0);

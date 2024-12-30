@@ -12,11 +12,10 @@ const ProductDetail: React.FC = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [disallowedOptions, setDisallowedOptions] = useState<number[]>([]);
 
-  // TODO: get from URL
-  const productId = 'aMockedProductId';
-
   useEffect(() => {
     const loadProductDetails = async () => {
+      const productId = Number(window.location.pathname.split('/').pop());
+
       const result = await useCases.findProductDetails({ productId });
       if (result.success) {
         const product = result.data;

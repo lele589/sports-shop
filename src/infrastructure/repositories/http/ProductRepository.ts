@@ -6,11 +6,12 @@ import { GENERIC_API_ERRORS } from './APIErrorConstants';
 type findProductByIdTypes = ({ productId }: { productId: number }) => Promise<ResultType<Product>>;
 
 // Methods
-const findProductById: findProductByIdTypes = async () => {
+const findProductById: findProductByIdTypes = async ({ productId }) => {
   const scope = '[REPOSITORY/FIND_PRODUCT_BY_ID]';
 
   try {
-    const response = await fetch('http://localhost:3000/api/product/1', {
+    // TODO: .env
+    const response = await fetch(`http://localhost:3000/api/product/${productId}`, {
       method: 'GET',
     });
 
