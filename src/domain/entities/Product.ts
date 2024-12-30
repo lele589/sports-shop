@@ -3,7 +3,7 @@ import { Part } from './Part';
 export type ProductType = 'bicycle' | 'other';
 
 export interface Product {
-  id: string;
+  id: number;
   name: string;
   description: string;
   type: ProductType;
@@ -16,6 +16,6 @@ export interface Product {
 }
 
 export interface OptionDependency {
-  optionId: string;
-  disallowedOptionId: string;
+  optionId: number;
+  disallowedOptionId: number;
 }

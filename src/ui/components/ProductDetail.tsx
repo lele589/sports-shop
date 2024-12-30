@@ -8,9 +8,9 @@ import { useCases } from '../../application/useCases/useCasesContainer';
 
 const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
-  const [selectedOptions, setSelectedOptions] = useState<{ [partId: string]: string }>({});
+  const [selectedOptions, setSelectedOptions] = useState<{ [partId: number]: number }>({});
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [disallowedOptions, setDisallowedOptions] = useState<string[]>([]);
+  const [disallowedOptions, setDisallowedOptions] = useState<number[]>([]);
 
   // TODO: get from URL
   const productId = 'aMockedProductId';
@@ -27,7 +27,7 @@ const ProductDetail: React.FC = () => {
     loadProductDetails();
   }, []);
 
-  const handleOptionChange = (partId: string, optionId: string) => {
+  const handleOptionChange = (partId: number, optionId: number) => {
     const newSelectedOptions = { ...selectedOptions, [partId]: optionId };
 
     const result = useCases.updateProductCustomization({

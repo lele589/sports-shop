@@ -1,22 +1,21 @@
 import { Product } from '../../../domain/entities/Product';
 import { ResultType } from '../../../types/Generics';
 import { GENERIC_API_ERRORS } from './APIErrorConstants';
-import { mockProduct } from './temporalProductMock';
 
 // Types
-type findProductByIdTypes = ({ productId }: { productId: string }) => Promise<ResultType<Product>>;
+type findProductByIdTypes = ({ productId }: { productId: number }) => Promise<ResultType<Product>>;
 
 // Methods
 const findProductById: findProductByIdTypes = async () => {
   const scope = '[REPOSITORY/FIND_PRODUCT_BY_ID]';
 
   try {
-    // const { data } = await fetch('https://api.example.com/product', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ productId }),
-    // });
+    const response = await fetch('http://localhost:3000/api/product/1', {
+      method: 'GET',
+    });
 
-    const product = mockProduct;
+    const parsedProductResponse = await response.json();
+    const product = parsedProductResponse.data;
 
     return {
       success: true,

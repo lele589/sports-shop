@@ -6,7 +6,7 @@ import { ResultType } from '../../types/Generics';
 type FindProductDetailsUseCaseQueryTypes = ({
   productId,
 }: {
-  productId: string;
+  productId: number;
 }) => Promise<ResultType<Product | null>>;
 
 export const FindProductDetailsUseCaseQuery: FindProductDetailsUseCaseQueryTypes = async ({

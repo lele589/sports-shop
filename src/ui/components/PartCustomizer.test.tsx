@@ -4,14 +4,14 @@ import PartCustomizer from './PartCustomizer';
 import { Part } from '../../domain/entities/Part';
 
 const mockPartDefaults = {
-  id: 'aPartId',
+  id: 1,
   name: 'aPartName',
 };
 
 const mockOptionDefaults = {
-  id: 'anOptionId',
+  id: 1,
   name: 'anOption',
-  available: true,
+  stock: 1,
   additionalPrice: 0,
 };
 
@@ -24,7 +24,7 @@ describe('PartCustomizer', () => {
       options: [
         {
           ...mockOptionDefaults,
-          available: true,
+          stock: 1,
         },
       ],
     };
@@ -48,7 +48,7 @@ describe('PartCustomizer', () => {
       options: [
         {
           ...mockOptionDefaults,
-          available: false,
+          stock: 0,
         },
       ],
     };
@@ -67,7 +67,7 @@ describe('PartCustomizer', () => {
   });
 
   it('should disable options that are disallowed', () => {
-    const disallowedOptionId = 'aDisallowedOptionId';
+    const disallowedOptionId = 1;
 
     const mockPart: Part = {
       ...mockPartDefaults,

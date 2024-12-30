@@ -1,7 +1,7 @@
 import { PartOption } from './PartOption';
 
 export interface Part {
-  id: string;
+  id: number;
   name: string;
   options: PartOption[];
 }

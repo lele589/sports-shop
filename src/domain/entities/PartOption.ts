@@ -1,6 +1,6 @@
 export interface PartOption {
-  id: string;
+  id: number;
   name: string;
   additionalPrice: number;
-  available: boolean;
+  stock: number;
 }

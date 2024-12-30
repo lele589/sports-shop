@@ -9,11 +9,11 @@ type UpdateProductCustomizationUseCaseCommandTypes = ({
   selectedOptions,
 }: {
   product: Product;
-  selectedOptions: { [partId: string]: string };
+  selectedOptions: { [partId: number]: number };
 }) => ResultType<{
   productTotalPrice: number;
-  disallowedOptions: string[];
-  updatedSelectedOptions: { [partId: string]: string };
+  disallowedOptions: number[];
+  updatedSelectedOptions: { [partId: number]: number };
 }>;
 
 export const UpdateProductCustomizationUseCaseCommand: UpdateProductCustomizationUseCaseCommandTypes =
