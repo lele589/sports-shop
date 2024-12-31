@@ -65,8 +65,8 @@ This project aims to **demonstrate my technical skills** in Fullstack web develo
 
    #### Frontend
 
-   - **Unit Tests**: Focused on ensuring individual components work correctly. _(e.g., PartCustomizer.test.tsx)_
-   - **Social Unit Tests**: Test component interactions with other layers, mocking only infrastructure to observe how the component reacts to user interactions, passing through application and domain layers and their real implementation. _(e.g., PartDetail.test.tsx)_
+   - **Unit Tests**: Focused on ensuring individual components work correctly. _(e.g., `PartCustomizer.test.tsx`)_
+   - **Social Unit Tests**: Test component interactions with other layers, mocking only infrastructure to observe how the component reacts to user interactions, passing through application and domain layers and their real implementation. _(e.g., `PartDetail.test.tsx`)_
    - **End-to-End Tests** (Future): Define once several features and pages are available to test complete user flows and ensure correct interaction between parts of the application.
 
    #### Backend
@@ -139,7 +139,11 @@ To configure the project from scratch, follow these steps:
    ```bash
    VITE_API_BASE_URL=http://localhost:3000/api
    ```
-4. Ensure to follow the setup steps for the API repository: [sports-shop-api](https://github.com/lele589/sports-shop-api).
+4. Start frontend server
+   ```bash
+   npm run dev
+   ```
+5. Ensure to follow the setup steps for the API repository: [sports-shop-api](https://github.com/lele589/sports-shop-api).
 
 > [!WARNING]  
-> If you encounter CORS issues, ensure the frontend server port matches the one defined in the backend repository's environment variables (.env).
+> If you encounter CORS issues, ensure the frontend server port matches the one defined in the backend repository's environment variables (`.env`).
