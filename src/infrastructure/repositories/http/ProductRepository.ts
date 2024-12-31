@@ -1,4 +1,4 @@
-import { Product } from '../../../domain/entities/Product';
+import { Product } from '../../../types/Product';
 import { ResultType } from '../../../types/Generics';
 import { GENERIC_API_ERRORS } from './APIErrorConstants';
 
@@ -36,6 +36,6 @@ const findProductById: findProductByIdTypes = async ({ productId }) => {
   }
 };
 
-export const ProductRepository = {
+export const productRepository = {
   findProductById,
 };

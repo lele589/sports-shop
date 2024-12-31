@@ -1,6 +1,6 @@
 import { productService } from '../../domain/services/productService';
 import { GENERIC_USE_CASE_ERRORS } from './useCasesErrorConstants';
-import { Product } from '../../domain/entities/Product';
+import { Product } from '../../types/Product';
 import { ResultType } from '../../types/Generics';
 import { partOptionsService } from '../../domain/services/partOptionsService';
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Product } from '../../domain/entities/Product';
+import { Product } from '../../types/Product';
 import PartCustomizer from './PartCustomizer';
 import ProductSummary from './ProductSummary';
 import ProductImage from './ProductImage';

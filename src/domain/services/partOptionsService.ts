@@ -1,4 +1,4 @@
-import { OptionDependency } from '../entities/Product';
+import { OptionDependency } from '../../types/Product';
 
 // Types
 type identifyDisallowedOptionsTypes = ({

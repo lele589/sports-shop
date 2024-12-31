@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import PartCustomizer from './PartCustomizer';
-import { Part } from '../../domain/entities/Part';
+import { Part } from '../../types/Part';
 
 const mockPartDefaults = {
   id: 1,

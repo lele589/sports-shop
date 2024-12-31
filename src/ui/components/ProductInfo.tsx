@@ -1,4 +1,4 @@
-import { ProductType } from '../../domain/entities/Product';
+import { ProductType } from '../../types/Product';
 
 interface ProductInfoProps {
   name: string;

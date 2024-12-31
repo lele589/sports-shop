@@ -1,5 +1,5 @@
-import { Part } from '../../domain/entities/Part';
-import { PartOption } from '../../domain/entities/PartOption';
+import { Part } from '../../types/Part';
+import { PartOption } from '../../types/PartOption';
 
 interface PartCustomizerProps {
   part: Part;

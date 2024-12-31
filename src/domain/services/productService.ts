@@ -1,7 +1,7 @@
-import { ProductRepository } from '../../infrastructure/repositories/http/ProductRepository';
-import { Part } from '../entities/Part';
-import { PartOption } from '../entities/PartOption';
-import { Product } from '../entities/Product';
+import { productRepository } from '../../infrastructure/repositories/http/productRepository';
+import { Part } from '../../types/Part';
+import { PartOption } from '../../types/PartOption';
+import { Product } from '../../types/Product';
 
 // Types
 type calculateTotalPriceTypes = ({
@@ -38,7 +38,7 @@ const calculateTotalPrice: calculateTotalPriceTypes = ({
 };
 
 const findProductById: findProductByIdTypes = async ({ productId }) => {
-  const result = await ProductRepository.findProductById({ productId });
+  const result = await productRepository.findProductById({ productId });
   if (!result.success) {
     return null;
   }
