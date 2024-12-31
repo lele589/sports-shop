@@ -8,4 +8,5 @@ export default {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   setupFilesAfterEnv: ['<rootDir>/src/tests/jest.setup.ts'],
+  resetMocks: true,
 };
