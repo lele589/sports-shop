@@ -8,7 +8,7 @@
 
 ## Project Purpose
 
-The goal of this project is to **demonstrate my technical skills** in Fullstack web application development. Throughout this repository, I aim to apply best practices and modern technologies, showcasing both my technical knowledge and decision-making in terms of code and product.
+This project aims to **demonstrate my technical skills** in Fullstack web development, rather than present a fully completed application. It showcases small examples of how a project could evolve, highlighting my approach to making technical decisions and applying best practices. The focus is on my ongoing process of growth, problem-solving, and refining both code and product.
 
 ## Technologies Used
 
@@ -30,13 +30,16 @@ The goal of this project is to **demonstrate my technical skills** in Fullstack 
 - **SQLite**: For this project, SQLite fits perfectly with the needs. For larger projects, I’ve worked with PostgreSQL and MySQL.
 - **Joi**: Used to validate API contracts, ensuring data consistency.
 
+> [!NOTE]  
+> This type of projects could also be done with NextJS, Astro, SvelteKit, as they are alternatives that allow having both the frontend and the backend in the same repository, which could make working on small projects easier.
+
 ## Decision Making
 
 1. **Domain Modeling**  
    I started by trying to understand the product's entities and dependencies, using diagrams to visualize them more clearly.  
    ![Entity Model](src/assets/documentation/entities.png)
 
-2. **DB Modeling**  
+2. **Database Modeling**  
    Based on the defined entities, I created an initial draft of the database model. Although this model is iterative, it provides a solid foundation for starting to define the data that will be handled.  
    ![DB Model](src/assets/documentation/dbmodel.png)
 
@@ -91,7 +94,7 @@ Some customization combinations are not possible and should be blocked.
 #### Acceptance Criteria:
 
 - [x] The system blocks incompatible part combinations.
-- [] The system displays a message to the user about invalid combinations. _(Currently, it only has a visual alert, but a message could be implemented when hovering over the blocked option.)_
+- [ ] The system displays a message to the user about invalid combinations. _(Currently, it only has a visual alert, but a message could be implemented when hovering over the blocked option.)_
 
 ### Inventory Management
 
@@ -100,7 +103,7 @@ Some options may not be available in stock.
 #### Acceptance Criteria:
 
 - [x] Out-of-stock options are unavailable for customers to select.
-- [] The system allows marking options as out of stock. _(This option would be available in the admin panel.)_
+- [ ] The system allows marking options as out of stock. _(This option would be available in the admin panel.)_
 
 ### Price Calculation
 
@@ -109,7 +112,7 @@ The total price of a customized bicycle is calculated by summing the price of ea
 #### Acceptance Criteria:
 
 - [x] The system correctly calculates the price based on selected options.
-- [] The system considers price dependencies between options (e.g., frame finish and frame type). _(Clarifications are still needed regarding this functionality.)_
+- [ ] The system considers price dependencies between options (e.g., frame finish and frame type). _(Clarifications are still needed regarding this functionality.)_
 
 ### Future
 
@@ -126,6 +129,7 @@ To configure the project from scratch, follow these steps:
 1. Clone the repository:
    ```bash
    git clone https://github.com/lele589/sports-shop.git
+   cd sports-shop
    ```
 2. Install dependencies:
    ```bash
