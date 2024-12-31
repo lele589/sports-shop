@@ -91,7 +91,7 @@ Some customization combinations are not possible and should be blocked.
 #### Acceptance Criteria:
 
 - [x] The system blocks incompatible part combinations.
-- [-] The system displays a message to the user about invalid combinations. _(Currently, it only has a visual alert, but a message could be implemented when hovering over the blocked option.)_
+- [] The system displays a message to the user about invalid combinations. _(Currently, it only has a visual alert, but a message could be implemented when hovering over the blocked option.)_
 
 ### Inventory Management
 
@@ -100,7 +100,7 @@ Some options may not be available in stock.
 #### Acceptance Criteria:
 
 - [x] Out-of-stock options are unavailable for customers to select.
-- [-] The system allows marking options as out of stock. _(This option would be available in the admin panel.)_
+- [] The system allows marking options as out of stock. _(This option would be available in the admin panel.)_
 
 ### Price Calculation
 
@@ -109,7 +109,7 @@ The total price of a customized bicycle is calculated by summing the price of ea
 #### Acceptance Criteria:
 
 - [x] The system correctly calculates the price based on selected options.
-- [-] The system considers price dependencies between options (e.g., frame finish and frame type). _(Clarifications are still needed regarding this functionality.)_
+- [] The system considers price dependencies between options (e.g., frame finish and frame type). _(Clarifications are still needed regarding this functionality.)_
 
 ### Future
 
