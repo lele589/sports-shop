@@ -2,6 +2,8 @@ import { Product } from '../../../domain/entities/Product';
 import { ResultType } from '../../../types/Generics';
 import { GENERIC_API_ERRORS } from './APIErrorConstants';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 // Types
 type findProductByIdTypes = ({ productId }: { productId: number }) => Promise<ResultType<Product>>;
 
@@ -10,8 +12,7 @@ const findProductById: findProductByIdTypes = async ({ productId }) => {
   const scope = '[REPOSITORY/FIND_PRODUCT_BY_ID]';
 
   try {
-    // TODO: .env
-    const response = await fetch(`http://localhost:3000/api/product/${productId}`, {
+    const response = await fetch(`${API_BASE_URL}/product/${productId}`, {
       method: 'GET',
     });
 
