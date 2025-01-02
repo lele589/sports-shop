@@ -14,16 +14,16 @@ const PartCustomizer: React.FC<PartCustomizerProps> = ({
   disallowedOptions,
   onOptionChange,
 }) => {
+  const isDisallowedOption = (option: PartOption) =>
+    Boolean(disallowedOptions.find((disallowedOptionId) => disallowedOptionId === option.id));
+  const isOutOfStockOption = (option: PartOption) => option.stock === 0;
+
   const styleSelectedOption = (option: PartOption) =>
     selectedOption === option.id ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800';
-
-  const isDisabledOption = (option: PartOption) =>
-    Boolean(disallowedOptions.find((disallowedOptionId) => disallowedOptionId === option.id));
-
-  const styleDisableOption = (option: PartOption) =>
-    isDisabledOption(option) ? 'opacity-30 cursor-not-allowed' : '';
+  const styleDisabledOption = (option: PartOption) =>
+    isOutOfStockOption(option) || isDisallowedOption(option) ? 'opacity-30 cursor-not-allowed' : '';
   const styleOutOfStockOption = (option: PartOption) =>
-    option.stock === 0 ? 'bg-red-300 opacity-30 cursor-not-allowed' : '';
+    isOutOfStockOption(option) ? 'bg-red-300' : '';
 
   return (
     <div className="mb-4">
@@ -32,9 +32,9 @@ const PartCustomizer: React.FC<PartCustomizerProps> = ({
         {part.options.map((option) => (
           <button
             key={option.id}
-            className={`px-4 py-2 rounded ${styleSelectedOption(option)} ${styleDisableOption(option)} ${styleOutOfStockOption(option)}`}
+            className={`px-4 py-2 rounded ${styleSelectedOption(option)} ${styleDisabledOption(option)} ${styleOutOfStockOption(option)}`}
             onClick={() => onOptionChange(part.id, option.id)}
-            disabled={isDisabledOption(option)}
+            disabled={isDisallowedOption(option) || isOutOfStockOption(option)}
           >
             {option.name}
             {option.additionalPrice > 0 && ` (+€${option.additionalPrice})`}

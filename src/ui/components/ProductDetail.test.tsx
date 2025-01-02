@@ -3,7 +3,11 @@ import ProductDetail from './ProductDetail';
 import { productRepository } from '../../infrastructure/repositories/http/productRepository';
 import { useCases } from '../../application/useCases/useCasesContainer';
 
-jest.mock('../../infrastructure/repositories/http/ProductRepository');
+jest.mock('../../infrastructure/repositories/http/productRepository', () => ({
+  productRepository: {
+    findProductById: jest.fn(),
+  },
+}));
 
 const mockProductDefaults = {
   id: 'anId',
