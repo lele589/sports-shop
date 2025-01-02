@@ -1,3 +1,4 @@
+import { PartOption } from '../../types/PartOption';
 import { partOptionsService } from './partOptionsService';
 
 describe('partOptionsService', () => {
@@ -64,7 +65,7 @@ describe('partOptionsService', () => {
 
     it('should NOT remove any options when no disallowed options are present', () => {
       const selectedOptions = { 1: 1, 2: 2 };
-      const disallowedOptions: number[] = [];
+      const disallowedOptions: PartOption['id'][] = [];
 
       const result = partOptionsService.filterSelectedOptions({
         selectedOptions,

@@ -3,9 +3,9 @@ import { PartOption } from '../../types/PartOption';
 
 interface PartCustomizerProps {
   part: Part;
-  selectedOption: number | null;
-  disallowedOptions: number[];
-  onOptionChange: (partId: number, optionId: number) => void;
+  selectedOption: PartOption['id'] | null;
+  disallowedOptions: PartOption['id'][];
+  onOptionChange: (partId: Part['id'], optionId: PartOption['id']) => void;
 }
 
 const PartCustomizer: React.FC<PartCustomizerProps> = ({

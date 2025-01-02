@@ -1,4 +1,5 @@
 import { Part } from './Part';
+import { PartOption } from './PartOption';
 
 export type ProductType = 'bicycle' | 'other';
 
@@ -16,6 +17,6 @@ export interface Product {
 }
 
 export interface OptionDependency {
-  optionId: number;
-  disallowedOptionId: number;
+  optionId: PartOption['id'];
+  disallowedOptionId: PartOption['id'];
 }

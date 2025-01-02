@@ -5,12 +5,16 @@ import ProductSummary from './ProductSummary';
 import ProductImage from './ProductImage';
 import ProductInfo from './ProductInfo';
 import { useCases } from '../../application/useCases/useCasesContainer';
+import { Part } from '../../types/Part';
+import { PartOption } from '../../types/PartOption';
 
 const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
-  const [selectedOptions, setSelectedOptions] = useState<{ [partId: number]: number }>({});
+  const [selectedOptions, setSelectedOptions] = useState<{
+    [partId: Part['id']]: PartOption['id'];
+  }>({});
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [disallowedOptions, setDisallowedOptions] = useState<number[]>([]);
+  const [disallowedOptions, setDisallowedOptions] = useState<PartOption['id'][]>([]);
 
   useEffect(() => {
     const loadProductDetails = async () => {
@@ -26,7 +30,7 @@ const ProductDetail: React.FC = () => {
     loadProductDetails();
   }, []);
 
-  const handleOptionChange = (partId: number, optionId: number) => {
+  const handleOptionChange = (partId: Part['id'], optionId: PartOption['id']) => {
     const newSelectedOptions = { ...selectedOptions, [partId]: optionId };
 
     const result = useCases.updateProductCustomization({

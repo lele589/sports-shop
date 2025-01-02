@@ -1,14 +1,10 @@
-import { Product } from '../../../types/Product';
-import { ResultType } from '../../../types/Generics';
 import { GENERIC_API_ERRORS } from './APIErrorConstants';
+import { ProductRepository } from '../../../domain/repositories/ProductRepository';
+import { Product } from '../../../types/Product';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-// Types
-type findProductByIdTypes = ({ productId }: { productId: number }) => Promise<ResultType<Product>>;
-
-// Methods
-const findProductById: findProductByIdTypes = async ({ productId }) => {
+const findProductById = async ({ productId }: { productId: Product['id'] }) => {
   const scope = '[REPOSITORY/FIND_PRODUCT_BY_ID]';
 
   try {
@@ -17,17 +13,17 @@ const findProductById: findProductByIdTypes = async ({ productId }) => {
     });
 
     const parsedProductResponse = await response.json();
-    const product = parsedProductResponse.data;
+    const product: Product = parsedProductResponse.data;
 
     return {
-      success: true,
+      success: true as const,
       data: product,
     };
   } catch {
     const errorMessage = 'Unexpected error';
 
     return {
-      success: false,
+      success: false as const,
       error: {
         type: GENERIC_API_ERRORS.UNEXPECTED,
         message: `${scope} ${errorMessage}`,
@@ -36,6 +32,6 @@ const findProductById: findProductByIdTypes = async ({ productId }) => {
   }
 };
 
-export const productRepository = {
+export const productRepository: ProductRepository = {
   findProductById,
 };

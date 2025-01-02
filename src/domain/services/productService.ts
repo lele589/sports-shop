@@ -10,11 +10,15 @@ type calculateTotalPriceTypes = ({
   parts,
 }: {
   baseProductPrice: number;
-  selectedOptions: { [partId: number]: number };
+  selectedOptions: { [partId: Part['id']]: PartOption['id'] };
   parts: Part[];
 }) => number;
 
-type findProductByIdTypes = ({ productId }: { productId: number }) => Promise<Product | null>;
+type findProductByIdTypes = ({
+  productId,
+}: {
+  productId: Product['id'];
+}) => Promise<Product | null>;
 
 // Methods
 const calculateTotalPrice: calculateTotalPriceTypes = ({

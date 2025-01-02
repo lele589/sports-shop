@@ -1,3 +1,5 @@
+import { Part } from '../../types/Part';
+import { PartOption } from '../../types/PartOption';
 import { OptionDependency } from '../../types/Product';
 
 // Types
@@ -5,17 +7,17 @@ type identifyDisallowedOptionsTypes = ({
   selectedOptions,
   dependencies,
 }: {
-  selectedOptions: { [partId: number]: number };
+  selectedOptions: { [partId: Part['id']]: PartOption['id'] };
   dependencies: OptionDependency[];
-}) => number[];
+}) => PartOption['id'][];
 
 type filterSelectedOptionsTypes = ({
   selectedOptions,
   disallowedOptions,
 }: {
-  selectedOptions: { [partId: number]: number };
-  disallowedOptions: number[];
-}) => { [partId: number]: number };
+  selectedOptions: { [partId: Part['id']]: PartOption['id'] };
+  disallowedOptions: PartOption['id'][];
+}) => { [partId: Part['id']]: PartOption['id'] };
 
 // Methods
 const identifyDisallowedOptions: identifyDisallowedOptionsTypes = ({
@@ -24,7 +26,7 @@ const identifyDisallowedOptions: identifyDisallowedOptionsTypes = ({
 }) => {
   const selectedOptionIds = Object.values(selectedOptions);
 
-  const disallowedOptionIds = dependencies.reduce<number[]>((acc, dependency) => {
+  const disallowedOptionIds = dependencies.reduce<PartOption['id'][]>((acc, dependency) => {
     if (selectedOptionIds.includes(dependency.optionId)) {
       acc.push(dependency.disallowedOptionId);
     }
@@ -40,7 +42,7 @@ const filterSelectedOptions: filterSelectedOptionsTypes = ({
 }) => {
   const newSelectedOptions = { ...selectedOptions };
 
-  disallowedOptions.forEach((disallowedOptionId: number) => {
+  disallowedOptions.forEach((disallowedOptionId: PartOption['id']) => {
     const partId = Object.keys(newSelectedOptions).find(
       (partId) => newSelectedOptions[Number(partId)] === disallowedOptionId,
     );

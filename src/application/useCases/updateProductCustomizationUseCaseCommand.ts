@@ -3,17 +3,19 @@ import { GENERIC_USE_CASE_ERRORS } from './useCasesErrorConstants';
 import { Product } from '../../types/Product';
 import { ResultType } from '../../types/Generics';
 import { partOptionsService } from '../../domain/services/partOptionsService';
+import { Part } from '../../../.history/src/domain/entities/Part_20241230131909';
+import { PartOption } from '../../types/PartOption';
 
 type UpdateProductCustomizationUseCaseCommandTypes = ({
   product,
   selectedOptions,
 }: {
   product: Product;
-  selectedOptions: { [partId: number]: number };
+  selectedOptions: { [partId: Part['id']]: PartOption['id'] };
 }) => ResultType<{
   productTotalPrice: number;
-  disallowedOptions: number[];
-  updatedSelectedOptions: { [partId: number]: number };
+  disallowedOptions: PartOption['id'][];
+  updatedSelectedOptions: { [partId: Part['id']]: PartOption['id'] };
 }>;
 
 export const UpdateProductCustomizationUseCaseCommand: UpdateProductCustomizationUseCaseCommandTypes =
@@ -25,10 +27,11 @@ export const UpdateProductCustomizationUseCaseCommand: UpdateProductCustomizatio
         dependencies: product.dependencies,
       });
 
-      const updatedSelectedOptions = partOptionsService.filterSelectedOptions({
-        selectedOptions,
-        disallowedOptions,
-      });
+      const updatedSelectedOptions: { [partId: string]: PartOption['id'] } =
+        partOptionsService.filterSelectedOptions({
+          selectedOptions,
+          disallowedOptions,
+        });
 
       const productTotalPrice = productService.calculateTotalPrice({
         baseProductPrice: product.basePrice,
